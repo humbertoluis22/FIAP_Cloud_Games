@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35728.132 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FIAP_Cloud_Games", "FIAP_Cloud_Games\FIAP_Cloud_Games.csproj", "{278A8989-F873-48B8-BD27-6402466141E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{8AECFA9B-6F60-420B-B63B-F42A33092F70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfraEstructure", "InfraEstructure\InfraEstructure.csproj", "{0E233CE9-C2E5-424F-A4D5-37E677AD8CE3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{278A8989-F873-48B8-BD27-6402466141E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{278A8989-F873-48B8-BD27-6402466141E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{278A8989-F873-48B8-BD27-6402466141E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{278A8989-F873-48B8-BD27-6402466141E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AECFA9B-6F60-420B-B63B-F42A33092F70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AECFA9B-6F60-420B-B63B-F42A33092F70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AECFA9B-6F60-420B-B63B-F42A33092F70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AECFA9B-6F60-420B-B63B-F42A33092F70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E233CE9-C2E5-424F-A4D5-37E677AD8CE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E233CE9-C2E5-424F-A4D5-37E677AD8CE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E233CE9-C2E5-424F-A4D5-37E677AD8CE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E233CE9-C2E5-424F-A4D5-37E677AD8CE3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
