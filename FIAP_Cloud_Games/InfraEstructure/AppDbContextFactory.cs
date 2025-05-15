@@ -13,7 +13,7 @@ namespace InfraEstructure
             {
                 var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
             
-                optionsBuilder.UseSqlServer("Server=(localdb)\\\\MSSQLLocalDB;" +
+                optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;" +
                     "Database=FiapCloudGames;" +
                     "Integrated Security=True;" +
                     "Connect Timeout=30;" +

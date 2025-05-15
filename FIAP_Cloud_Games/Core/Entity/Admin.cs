@@ -5,7 +5,7 @@ namespace Core.Entity
     public class Admin:EntityBase
     {
         public string Email { get; set; }
-        public DateTime DataInscricao { get; set; }
+        public DateTime DataCriacao { get; set; }
         public string UserName { get; set; }
         public ICollection<Jogo> Jogos { get; set; }
         public string Senha 
@@ -34,7 +34,7 @@ namespace Core.Entity
             this.UserName = UserName;
             this.Senha = Senha;
             this.Email = Email;
-            this.DataInscricao = DateTime.Now;
+            this.DataCriacao = DateTime.Now;
         }
 
 

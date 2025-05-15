@@ -1,6 +1,6 @@
 ﻿namespace Core.Entity
 {
-    public  class Jogo
+    public  class Jogo:EntityBase
     {
         public int IdAdmin { get; set; } 
         public string NomeJogo { get; set; }

@@ -11,6 +11,10 @@ namespace InfraEstructure
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Jogo> Jogos { get; set; }
         public DbSet<Admin> Admins { get; set; }
-    }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+        }
+    }
 }
