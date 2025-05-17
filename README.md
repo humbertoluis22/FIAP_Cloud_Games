@@ -210,3 +210,7 @@ IdJogo | INT NOT NULL, FOREIGN KEY REFERENCES Jogos(id) | Referencia ao ID do jo
 IdUsuario |INT NOT NULL, FOREIGN KEY REFERENCES Usuarios(id) | Referencia ao ID do usuario
 jogoEmprestado | BOOLEAN DEFAULT FALSE | Indica se o jogo é emprestado
 Data_aquisicao |  DATE NOT NULL | Data em que o jogo foi incluso na biblioteca
+
+## 🎬 event storming
+Link para miro :
+https://miro.com/app/board/uXjVI0vuaz0=/?share_link_id=962473604390
