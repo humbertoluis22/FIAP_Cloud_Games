@@ -160,10 +160,10 @@ graph TD
 
 ## 📌 Regras de Login e Criação de conta
 
-✔️ Bloqueio após 3 tentativas erradas consecutivas;
-✔️ Reset do contador de tentativas erradas no login bem-sucedido;
-✔️ Apenas o Admin pode desbloquear a conta;
-✔️ Senha do Usuário é de no mínimo 8 caracteres com números, letras e caracteres especiais
+- ✔️ Bloqueio após 3 tentativas erradas consecutivas;
+- ✔️ Reset do contador de tentativas erradas no login bem-sucedido;
+- ✔️ Apenas o Admin pode desbloquear a conta;
+- ✔️ Senha do Usuário é de no mínimo 8 caracteres com números, letras e caracteres especiais
 
 
 # 🗃️ Estrutura do Banco de Dados 
