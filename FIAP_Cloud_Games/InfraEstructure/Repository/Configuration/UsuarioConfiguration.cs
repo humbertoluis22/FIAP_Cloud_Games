@@ -18,6 +18,12 @@ namespace InfraEstructure.Repository.Configuration
             builder.Property(u => u.TentativasErradas).HasColumnType("int").IsRequired();
             builder.Property(u => u.Bloqueado).HasColumnType("bit").IsRequired();
 
+            builder.HasMany(u => u.Bibliotecas)
+                .WithOne(b => b.Usuario)
+                .HasForeignKey(b => b.UsuarioID)
+                .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }
+

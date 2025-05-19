@@ -16,6 +16,11 @@ namespace InfraEstructure.Repository.Configuration
             builder.Property(a => a.Email).HasColumnType("varchar(50)").IsRequired();
             builder.Property(a => a.DataCriacao).HasColumnType("datetime").IsRequired();
 
+            builder.HasMany(a =>a.Jogos)
+                .WithOne(j => j.Admin)
+                .HasForeignKey(j => j.IdAdmin)
+                .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }

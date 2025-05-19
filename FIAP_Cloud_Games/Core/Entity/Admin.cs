@@ -8,6 +8,7 @@ namespace Core.Entity
         public DateTime DataCriacao { get; set; }
         public string UserName { get; set; }
         public ICollection<Jogo> Jogos { get; set; }
+
         public string Senha 
         { 
             get { return Senha; }

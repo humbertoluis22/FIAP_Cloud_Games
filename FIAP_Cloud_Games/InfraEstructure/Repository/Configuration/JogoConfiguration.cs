@@ -18,6 +18,19 @@ namespace InfraEstructure.Repository.Configuration
             builder.Property(j => j.Descricao).HasColumnType("varchar(200)").IsRequired();
             builder.Property(j => j.Desenvolvedor).HasColumnType("varchar(50)").IsRequired();
             builder.Property(j => j.Preco).HasColumnType("decimal(18,2)").IsRequired();
+
+            builder.HasMany(j => j.Bibliotecas)
+                .WithOne(b => b.Jogo)
+                .HasForeignKey(b => b.JogoID)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(j => j.Admin)
+                .WithMany(a => a.Jogos)
+                .HasForeignKey(j => j.IdAdmin)
+                .OnDelete(DeleteBehavior.Restrict); 
         }
+
+
     }
 }
+

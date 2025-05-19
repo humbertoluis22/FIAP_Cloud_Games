@@ -10,6 +10,8 @@
         public int TentativasErradas { get; set; }
         public Boolean Bloqueado { get; set; }
 
+        public ICollection<Biblioteca> Bibliotecas { get; set; }
+
         public Usuario()
         {
             

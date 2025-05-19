@@ -11,6 +11,7 @@
         public decimal Preco { get; set; }
 
         public Admin Admin { get; set; }
+        public ICollection<Biblioteca> Bibliotecas { get; set; }
 
         public Jogo()
         {
