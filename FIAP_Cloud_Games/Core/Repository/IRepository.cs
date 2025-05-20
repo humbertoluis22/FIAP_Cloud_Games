@@ -8,6 +8,6 @@ namespace Core.Repository
         Task<T> ObterPorIdAsync(int ID);
         Task CadastrarAssync(T entity);
         Task DeletarAsync(int ID);
-        Task<T> AlterarAsync(T entity);
+        Task  AlterarAsync(T entity);
     }
 }

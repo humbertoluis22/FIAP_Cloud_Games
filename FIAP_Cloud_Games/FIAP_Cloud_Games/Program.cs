@@ -1,4 +1,6 @@
+using Core.Repository;
 using InfraEstructure;
+using InfraEstructure.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +17,15 @@ builder.Services.AddDbContext<AppDbContext>(
         optiions.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
     ,ServiceLifetime.Scoped
     );
-    
+
+
+#region incluindo injecao de dependencia das Interfaces IRepository
+builder.Services.AddScoped<IJogoRepository, JogoRepository>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IBibliotecaRepository, BibliotecaRepository>();
+builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+#endregion
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
