@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Core.Entity
 {
@@ -9,35 +10,34 @@ namespace Core.Entity
         public string UserName { get; set; }
         public ICollection<Jogo> Jogos { get; set; }
 
-        public string Senha 
-        { 
-            get { return Senha; }
-            set
-            {
-                if (value.Length >= 8)
-                {
-                    Senha = value;
-                }
-                else
-                {
-                    throw new Exception("A senha deve ter no mínimo 8 caracteres");
-                }
-            }
-        }
-   
+        public string Senha { get; set; } 
+
+
 
         public Admin()
         {
             
         }
-        public Admin(string UserName,string Senha , string Email)
+        public Admin(string userName,string senha , string email)
         {
-            this.UserName = UserName;
-            this.Senha = Senha;
-            this.Email = Email;
+            this.UserName = userName;
+            DefinirSenha(senha);
+            this.Email = email;
             this.DataCriacao = DateTime.Now;
         }
 
+
+        public void DefinirSenha(string senha)
+        {
+            if(senha.Length  < 8)
+            {
+                throw new("A senha precisa conter no minimo8 caracteres ! ");
+            }
+            else
+            {
+                this.Senha = senha;
+            }
+        }
 
 
     }

@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Core.Input.admin
+{
+    public class AdminUpdateInput
+    {
+        public int AdminID { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string Senha { get; set; }
+    }
+}

@@ -10,6 +10,7 @@ namespace InfraEstructure.Repository.Configuration
         {
             builder.ToTable("Biblioteca");
             builder.HasKey(x => x.ID);
+            builder.Property(x => x.ID).HasColumnType("int").UseIdentityColumn();
             builder.Property(x => x.JogoID).IsRequired();
             builder.Property(x => x.UsuarioID).IsRequired();
             builder.Property(x => x.JogoEmprestado).IsRequired();

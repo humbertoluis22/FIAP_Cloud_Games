@@ -10,7 +10,7 @@ namespace InfraEstructure.Repository.Configuration
         {
             builder.ToTable("Jogo");
             builder.HasKey(j => j.ID);
-            builder.Property(j => j.ID).HasColumnType("int").IsRequired();
+            builder.Property(j => j.ID).HasColumnType("int").UseIdentityColumn();
             builder.Property(j => j.NomeJogo).HasColumnType("varchar(50)").IsRequired();
             builder.Property(j => j.Genero).HasColumnType("varchar(20)").IsRequired();
             builder.Property(j => j.IdAdmin).HasColumnType("int").IsRequired();
