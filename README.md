@@ -208,7 +208,8 @@ Coluna |Tipo|Descrição|
 Id | INT PRIMARY KEY AUTO_INCREMENT | Id unico para controle de dados. 
 IdJogo | INT NOT NULL, FOREIGN KEY REFERENCES Jogos(id) | Referencia ao ID do jogo
 IdUsuario |INT NOT NULL, FOREIGN KEY REFERENCES Usuarios(id) | Referencia ao ID do usuario
-jogoEmprestado | BOOLEAN DEFAULT FALSE | Indica se o jogo é emprestado
+jogoEmprestado | BOOLEAN DEFAULT FALSE | Indica se o jogo é emprestado de alguem
+estaEmprestado | BOOLEAN DEFAULT FALSE | Indica se o jogo esta emprestado para alguem
 Data_aquisicao |  DATE NOT NULL | Data em que o jogo foi incluso na biblioteca
 
 ## 🎬 event storming
