@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +17,24 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+
+#region Documento Swagger
+builder.Services.AddSwaggerGen(c =>
+{
+    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+    {
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "Bearer",
+        In = ParameterLocation.Header,
+        Description = "Insira o Token Jwt no Formato **{token}**"
+    });
+
+    c.OperationFilter<JwtBearerOperationFilter>();
+});
+#endregion
+
 
 builder.Services.AddDbContext<AppDbContext>(
     optiions => 
@@ -36,7 +54,15 @@ builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 #region Token
 builder.Services.AddScoped<TokenGenerate>();
 
-var key = Encoding.ASCII.GetBytes("ADIOJSOdaijodaioAOA@#!@!oAOISOSOADASsaosasd((*12232AAAASSADDSSAASCSASXSASSASCXA");
+
+#region configura jwtSettings e extrai a chave para uso imediato na configração do jwt
+
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
+
+var jwtSettigns = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
+var key = Encoding.ASCII.GetBytes(jwtSettigns.SecretKey);
+#endregion
+
 builder.Services.AddAuthentication(x =>
 {
     x.DefaultAuthenticateScheme =  JwtBearerDefaults.AuthenticationScheme;
@@ -70,6 +96,7 @@ app.UseMiddleware<LogMiddleware>();
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication(); 
 app.UseAuthorization();
 
 app.MapControllers();

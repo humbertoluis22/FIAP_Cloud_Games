@@ -11,8 +11,8 @@ namespace InfraEstructure.Repository
 {
     public class EFRepository<T> : IRepository<T> where T : EntityBase
     {
-        private readonly AppDbContext _context;
-        private readonly DbSet<T> _dbSet;
+        protected readonly AppDbContext _context;
+        protected readonly DbSet<T> _dbSet;
 
         public EFRepository(AppDbContext context)
         {

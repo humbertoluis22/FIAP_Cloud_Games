@@ -1,6 +1,7 @@
 ﻿using Core.Entity;
 using Core.Input.admin;
 using Core.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,7 +19,9 @@ namespace FIAP_Cloud_Games.Controllers
         }
 
 
+
         [HttpGet("listarAdmin")]
+        [AllowAnonymous]
         public async Task<ActionResult> ListarAdmin()
         {
             try
@@ -52,6 +55,7 @@ namespace FIAP_Cloud_Games.Controllers
 
 
         [HttpGet("recolherAdminid/{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> RecolherAdmin([FromRoute]int id)
         {
             try
@@ -69,12 +73,24 @@ namespace FIAP_Cloud_Games.Controllers
             }
         }
 
+        
         [HttpPost("criarAdmin")]
+        [AllowAnonymous]
         public async Task<ActionResult> CriarAdmin([FromBody] AdminInput adminInput )
         {
             try
             {
                 Admin admin = new Admin(adminInput.UserName, adminInput.Senha, adminInput.Email);
+
+                var usuariosAdmins = await _adminRepository
+                    .ListarAdminsPorEmailouUserName(adminInput.UserName, adminInput.Email);
+
+                if (usuariosAdmins.Any())
+                {
+                    return Conflict("Username ou Email já existe");
+                }
+
+
                 AdminDTO adminTDO = new AdminDTO(){
                     UserName = admin.UserName,
                     Email = admin.Email,
@@ -96,6 +112,7 @@ namespace FIAP_Cloud_Games.Controllers
 
 
         [HttpPut("atualizarAdmin")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> AtualizarAdmin([FromBody] AdminUpdateInput adminUpdateInput) 
         {
             try 
@@ -133,6 +150,7 @@ namespace FIAP_Cloud_Games.Controllers
 
 
         [HttpDelete("deletarAdmin/{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeletarAdmin([FromRoute] int id)
         {
             try
@@ -151,13 +169,6 @@ namespace FIAP_Cloud_Games.Controllers
             }
         }
 
-
-
-        //[HttpPost("LoginAdmin")]
-        //public async Task<ActionResult> RealizarLogin([FromBody] AdminInput adminInput)
-        //{
-        //    // implemnetar rota depois 
-        //}
 
 
         //[HttpPut("DesbloquearUsuario/{id:int}")]

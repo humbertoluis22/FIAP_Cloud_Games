@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Core.Input.jogo;
 using Core.Entity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FIAP_Cloud_Games.Controllers
 {
@@ -17,6 +18,7 @@ namespace FIAP_Cloud_Games.Controllers
 
 
         [HttpGet("listarJogo")]
+        [AllowAnonymous]
         public async Task<ActionResult> ListarJogo()
         {
             try
@@ -53,6 +55,7 @@ namespace FIAP_Cloud_Games.Controllers
 
 
         [HttpGet("recolherJogoId/{id:int}")]
+        [AllowAnonymous]
         public async Task<ActionResult> RecolherJogoId(int id)
         {
             try
@@ -82,6 +85,7 @@ namespace FIAP_Cloud_Games.Controllers
 
 
         [HttpPost("criarJogo")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> CriarJogo([FromBody] JogoInput jogoInput)
         {
             try
@@ -116,6 +120,7 @@ namespace FIAP_Cloud_Games.Controllers
 
 
         [HttpPut("atualizarJogo")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> AtualizarJogo([FromBody] JogoUpdateInput jogoInput)
         {
             try
@@ -160,6 +165,7 @@ namespace FIAP_Cloud_Games.Controllers
 
 
         [HttpDelete("deletarJogo/{id:int}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeletarJogo(int id)
         {
             try
@@ -177,7 +183,9 @@ namespace FIAP_Cloud_Games.Controllers
                 return BadRequest(ex.Message);
             }
         }
-  
+
+
+        //[HttpPut("AdicionarPromocao")] -> admin
     
     
     }

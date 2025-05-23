@@ -14,6 +14,7 @@ namespace InfraEstructure.Repository.Configuration
             builder.Property(x => x.JogoID).IsRequired();
             builder.Property(x => x.UsuarioID).IsRequired();
             builder.Property(x => x.JogoEmprestado).IsRequired();
+            builder.Property(x => x.EstaEmprestado).IsRequired();
             builder.Property(x => x.DataAquisicao).IsRequired();
 
             builder.HasOne(b => b.Usuario)

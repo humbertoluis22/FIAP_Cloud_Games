@@ -38,5 +38,22 @@
                 this.Senha = senha;
             }
         }
+
+
+        public void AdicionarTentativaErrada()
+        {
+            if (TentativasErradas >= 3)
+            {
+                Bloqueado = true;
+                throw new("Usuario bloqueado, entre em contato com o Admin");
+            }
+            TentativasErradas += 1;
+           
+        }
+
+        public void ZerarTentativasErrada()
+        {
+            TentativasErradas = 0;
+        }
     }
 }

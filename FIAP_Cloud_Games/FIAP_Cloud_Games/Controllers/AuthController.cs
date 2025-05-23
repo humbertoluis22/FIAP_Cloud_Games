@@ -1,5 +1,9 @@
-﻿using InfraEstructure;
+﻿using Core.Input.admin;
+using Core.Input.usuario;
+using Core.Repository;
+using InfraEstructure;
 using InfraEstructure.Auth;
+using InfraEstructure.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FIAP_Cloud_Games.Controllers
@@ -9,25 +13,94 @@ namespace FIAP_Cloud_Games.Controllers
     public class AuthController : ControllerBase
     {
         private readonly TokenGenerate _tokenGenerate;
-        private readonly AppDbContext _context;
+        private readonly IAdminRepository _adminRepository;
+        private readonly IUsuarioRepository _usuarioRepository;
 
-        public AuthController(AppDbContext context,TokenGenerate tokenGenerate)
+        public AuthController(
+            IAdminRepository adminRepository,
+            IUsuarioRepository  usuarioRepository, 
+            TokenGenerate tokenGenerate
+            )
         {
-            _context = context;
+            _adminRepository = adminRepository;
+            _usuarioRepository = usuarioRepository;
             _tokenGenerate = tokenGenerate;
 
         }
 
-        [HttpPost("autenticar")]
-        public ActionResult Autenticar(string userName, string role)
+
+        [HttpPost("loginUsuario")] //-> usuario
+        public async Task<ActionResult> RealizarLoginUsuario([FromBody] UsuarioInput usuarioInput)
         {
-            //var usuario =  _context.Usuarios.FirstOrDefault(u => u.UserName == userName);
-            var token = _tokenGenerate.GenerateToken(userName, role);
-            if(userName == "Humberto")
+            try
             {
-                return BadRequest("usuario invalido");
+                var usuario_validacao = await _usuarioRepository
+                    .recolherusuarioPorEmailUsername(usuarioInput.UserName,usuarioInput.Email);
+
+
+                if (usuario_validacao == null) 
+                {
+                    return NotFound("UserName ou Email invalidos!");
+                }
+                else if (usuario_validacao.Bloqueado)
+                {
+                    return NotFound("Usuario Bloqueado,entre em contato com o Admin");
+                }
+
+                var usuario = await _usuarioRepository
+                    .ObterPorLogin(usuarioInput.UserName, usuarioInput.Email, usuarioInput.Senha);
+
+
+                if (usuario == null)
+                {
+                    usuario_validacao.AdicionarTentativaErrada();
+                    await _usuarioRepository.AlterarAsync(usuario_validacao);
+                    return NotFound("Senha Incorreta");
+                }
+
+                usuario.ZerarTentativasErrada();
+                await _usuarioRepository.AlterarAsync(usuario);
+
+                var token = _tokenGenerate.GenerateToken(usuario.ID,usuario.UserName, "User");
+                return Ok(new
+                {
+                    Messagem = "Token gerado com sucesso",
+                    Token = token
+                });
             }
-            return Ok(new { token = token});
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
+
+
+        [HttpPost("LoginAdmin")]
+        public async Task<ActionResult> RealizarLoginAdmin([FromBody] AdminInput adminInput)
+        {
+            try
+            {
+                var admin = await _adminRepository
+                    .ObterPorLogin(adminInput.UserName,adminInput.Email ,adminInput.Senha);
+                
+                if (admin == null)
+                {
+                    return NotFound("Usuario ou senha invalidos");
+                }
+
+                var token = _tokenGenerate.GenerateToken(admin.ID,admin.UserName, "Admin");
+                return Ok(new 
+                {
+                    Messagem = "Token gerado com sucesso",
+                    Token = token 
+                });
+
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }
