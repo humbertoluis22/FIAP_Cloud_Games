@@ -196,28 +196,49 @@ namespace FIAP_Cloud_Games.Controllers
         }
 
 
-        [HttpDelete("deletarConta")]
-        [Authorize(Roles = "User")]
-        public async Task<ActionResult> DeletarConta()
+        [HttpPut("bloquearUsuario/{usuarioId:int}")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> BloquarUsuario(int usuarioId)
         {
             try
             {
-                var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-
-                var usuario = await _usuarioRepository.ObterPorIdAsync(userId);
+                var usuario = await _usuarioRepository.ObterPorIdAsync(usuarioId);
                 if (usuario == null)
                 {
                     return NotFound("Nenhum usuário encontrado !");
                 }
-                await _usuarioRepository.DeletarAsync(usuario.ID);
-                return Ok("Conta deletada com sucesso !");
+                usuario.BloquearUsuario();
+                await _usuarioRepository.AlterarAsync(usuario);
+                return Ok("Usuario bloqueado com sucesso !");
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-
             }
         }
+
+
+        [HttpPut("desbloquearUsuario/{usuarioId}")]
+        [Authorize(Roles ="Admin")]
+        public async Task<ActionResult> DesbloquearUsuario(int usuarioId)
+        {
+            try
+            {
+                var usuario = await _usuarioRepository.ObterPorIdAsync(usuarioId);
+                if (usuario == null)
+                {
+                    return NotFound("Nenhum usuário encontrado !");
+                }
+                usuario.DesbloquearUsuario();
+                await _usuarioRepository.AlterarAsync(usuario);
+                return Ok("Usuario desbloqueado com sucesso !");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
 
         [HttpDelete("deletarUsuario/{usuarioId:int}")]
@@ -241,9 +262,30 @@ namespace FIAP_Cloud_Games.Controllers
             }
         }
 
-        //[HttpPut("BloquearUsuario")] -> apenas admin
-        //[HttpPut("DesbloquearUsuario")] -> apenas admin
 
+
+        [HttpDelete("deletarConta")]
+        [Authorize(Roles = "User")]
+        public async Task<ActionResult> DeletarConta()
+        {
+            try
+            {
+                var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+
+                var usuario = await _usuarioRepository.ObterPorIdAsync(userId);
+                if (usuario == null)
+                {
+                    return NotFound("Nenhum usuário encontrado !");
+                }
+                await _usuarioRepository.DeletarAsync(usuario.ID);
+                return Ok("Conta deletada com sucesso !");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+        }
 
     }
 }
