@@ -31,5 +31,17 @@
         }
 
 
+        public void AplicarPorcentagemDesconto(double quantidade_desconto)
+        {
+            if (quantidade_desconto < 0.5)
+            {
+                throw new("Porcentagem de desconto tem que ser superior a 5");
+            }
+
+            var novoValor = this.Preco - (this.Preco * (decimal)quantidade_desconto / 100);
+            
+            this.Preco = novoValor;
+        }
+
     }
 }

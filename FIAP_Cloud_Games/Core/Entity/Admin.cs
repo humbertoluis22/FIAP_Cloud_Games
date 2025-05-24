@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualBasic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
+
 
 namespace Core.Entity
 {
@@ -22,7 +24,7 @@ namespace Core.Entity
         {
             this.UserName = userName;
             DefinirSenha(senha);
-            this.Email = email;
+            DefinirEmail(email);
             this.DataCriacao = DateTime.Now;
         }
 
@@ -31,12 +33,33 @@ namespace Core.Entity
         {
             if(senha.Length  < 8)
             {
-                throw new("A senha precisa conter no minimo8 caracteres ! ");
+                throw new("A senha precisa conter no minimo8 caracteres !");
             }
-            else
+
+            // valida se senha tem ao menos
+            // uma letra maiscula, um caracter especial e um digito
+            var padrao_senha = "^(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*(),.?\":{}|<>]).+$";
+            
+            bool math = Regex.IsMatch(senha, padrao_senha);
+            if (!math)
             {
-                this.Senha = senha;
+                throw new("Senha precisa conter ao menos uma letra maiscula,um caracter especial e um digito!");
             }
+            this.Senha = senha;
+
+        }
+
+        public void DefinirEmail(string email)
+        {
+            var padrao_email = "^[\\w\\.-]+@[\\w\\-]+\\.\\w{2,}$";
+
+            bool math = Regex.IsMatch(email, padrao_email);
+            if (!math)
+            {
+                throw new("Email invalido!");
+            }
+
+            this.Email = email;
         }
 
 
