@@ -90,6 +90,14 @@ O projeto utiliza as seguintes bibliotecas principais:
 
 - Swashbuckle.AspNetCore (Swagger)
 
+- Microsoft.AspNetCore.Authentication.JwtBearer.
+
+- Microsoft.AspNetCore.Http.Abstractions.
+
+- Microsoft.NET.Test.Sdk – SDK para execução de testes unitários.
+
+- NetEvolve.Logging.Abstractions.
+
 # 🔄️ fluxos 
 
 ## 🔁 FLuxo de criação do Usuário
