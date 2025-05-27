@@ -19,7 +19,17 @@ namespace FIAP_Cloud_Games.Controllers
         }
 
 
-
+        /// <summary>
+        /// Lista todos os administradores cadastrados.
+        /// </summary>
+        /// <remarks>
+        /// Requisição pública para obter todos os administradores disponíveis no sistema.
+        /// Não exige autenticação.
+        /// </remarks>
+        /// <returns>Retorna uma lista de administradores no formato DTO.</returns>
+        /// <response code="200">Retorna a lista de administradores</response>
+        /// <response code="404">Nenhum administrador encontrado</response>
+        /// <response code="400">Erro na requisição</response>
         [HttpGet("listarAdmin")]
         [AllowAnonymous]
         public async Task<ActionResult> ListarAdmin()
@@ -54,6 +64,17 @@ namespace FIAP_Cloud_Games.Controllers
         }
 
 
+        /// <summary>
+        /// Retorna um administrador pelo ID.
+        /// </summary>
+        /// <remarks>
+        /// Requer autenticação com perfil de Admin.
+        /// </remarks>
+        /// <param name="id">ID do administrador.</param>
+        /// <returns>Dados do administrador.</returns>
+        /// <response code="200">Retorna o administrador encontrado</response>
+        /// <response code="404">Administrador não encontrado</response>
+        /// <response code="400">Erro na requisição</response>
         [HttpGet("recolherAdminid/{id:int}")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> RecolherAdmin([FromRoute]int id)
@@ -73,7 +94,19 @@ namespace FIAP_Cloud_Games.Controllers
             }
         }
 
-        
+
+
+        /// <summary>
+        /// Cria um novo administrador.
+        /// </summary>
+        /// <remarks>
+        /// Requisição pública para criação de um novo administrador.
+        /// </remarks>
+        /// <param name="adminInput">Dados de entrada do administrador.</param>
+        /// <returns>Administrador criado no formato DTO.</returns>
+        /// <response code="201">Administrador criado com sucesso</response>
+        /// <response code="409">Username ou Email já existe</response>
+        /// <response code="400">Erro na requisição</response>
         [HttpPost("criarAdmin")]
         [AllowAnonymous]
         public async Task<ActionResult> CriarAdmin([FromBody] AdminInput adminInput )
@@ -111,6 +144,17 @@ namespace FIAP_Cloud_Games.Controllers
 
 
 
+        /// <summary>
+        /// Atualiza os dados de um administrador existente.
+        /// </summary>
+        /// <remarks>
+        /// Requer autenticação com perfil de Admin.
+        /// </remarks>
+        /// <param name="adminUpdateInput">Dados atualizados do administrador.</param>
+        /// <returns>Confirmação da atualização e dados atualizados.</returns>
+        /// <response code="200">Administrador atualizado com sucesso</response>
+        /// <response code="404">Administrador não encontrado</response>
+        /// <response code="400">Erro na requisição</response>
         [HttpPut("atualizarAdmin")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> AtualizarAdmin([FromBody] AdminUpdateInput adminUpdateInput) 
@@ -149,6 +193,17 @@ namespace FIAP_Cloud_Games.Controllers
         }
 
 
+        /// <summary>
+        /// Deleta um administrador pelo ID.
+        /// </summary>
+        /// <remarks>
+        /// Requer autenticação com perfil de Admin.
+        /// </remarks>
+        /// <param name="id">ID do administrador a ser deletado.</param>
+        /// <returns>Confirmação da exclusão.</returns>
+        /// <response code="200">Administrador deletado com sucesso</response>
+        /// <response code="404">Administrador não encontrado</response>
+        /// <response code="400">Erro na requisição</response>
         [HttpDelete("deletarAdmin/{id:int}")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeletarAdmin([FromRoute] int id)
@@ -170,11 +225,5 @@ namespace FIAP_Cloud_Games.Controllers
         }
 
 
-
-        //[HttpPut("DesbloquearUsuario/{id:int}")]
-        //public async Task<ActionResult> DesbloquearUsuario([FromRoute] int id)
-        //{
-               // implementar rotas depois -> MOVER PARA ROTA DE USUARIO QUANDO CRIADA
-        //}
     }
 }

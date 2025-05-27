@@ -29,7 +29,19 @@ namespace FIAP_Cloud_Games.Controllers
         }
 
 
-        [HttpPost("loginUsuario")] //-> usuario
+
+        /// <summary>
+        /// Realiza o login de um usuário comum.
+        /// </summary>
+        /// <remarks>
+        /// Gera um token de autenticação caso as credenciais sejam válidas.
+        /// </remarks>
+        /// <param name="usuarioInput">Dados de autenticação do usuário (username, email e senha).</param>
+        /// <returns>Token de autenticação para o usuário.</returns>
+        /// <response code="200">Token gerado com sucesso</response>
+        /// <response code="404">Usuário não encontrado ou credenciais inválidas</response>
+        /// <response code="400">Erro na requisição</response>
+        [HttpPost("loginUsuario")] 
         public async Task<ActionResult> RealizarLoginUsuario([FromBody] UsuarioInput usuarioInput)
         {
             try
@@ -75,6 +87,18 @@ namespace FIAP_Cloud_Games.Controllers
         }
 
 
+
+        /// <summary>
+        /// Realiza o login de um administrador.
+        /// </summary>
+        /// <remarks>
+        /// Gera um token de autenticação para administradores.
+        /// </remarks>
+        /// <param name="adminInput">Dados de autenticação do administrador (username, email e senha).</param>
+        /// <returns>Token de autenticação para o administrador.</returns>
+        /// <response code="200">Token gerado com sucesso</response>
+        /// <response code="404">Administrador não encontrado ou credenciais inválidas</response>
+        /// <response code="400">Erro na requisição</response>
         [HttpPost("LoginAdmin")]
         public async Task<ActionResult> RealizarLoginAdmin([FromBody] AdminInput adminInput)
         {
