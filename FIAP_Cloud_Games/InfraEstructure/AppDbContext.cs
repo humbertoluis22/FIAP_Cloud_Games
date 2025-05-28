@@ -1,5 +1,6 @@
 ﻿using Core.Entity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 
 namespace InfraEstructure
 {
@@ -11,6 +12,8 @@ namespace InfraEstructure
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Jogo> Jogos { get; set; }
         public DbSet<Admin> Admins { get; set; }
+
+        public DbSet<Biblioteca> Biblioteca { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
