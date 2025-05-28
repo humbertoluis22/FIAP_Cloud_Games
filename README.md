@@ -1,9 +1,9 @@
 # 🚀 Fiap Cloud Games (FCG)
-Fiap Cloud Games (FCG) é uma API para uma plataforma de streaming  de jogos digitais, com um diferencial importante: a possibilidade de emprestar jogos entre usuários. O sistema também contempla controle de bibliotecas de jogos, gestão de usuários, regras de segurança e administração de servidores para partidas online.
+Fiap Cloud Games (FCG) é uma API para uma plataforma de streaming  de jogos digitais, com um diferencial importante: a possibilidade de emprestar jogos entre usuários. O sistema também contempla controle de bibliotecas de jogos, gestão de usuários, regras de segurança .
 
 # 🎯 Objetivos 
 
-- Proporcionar um sistema de empréstimo de jogos entre usuários.
+- Proporcionar um sistema de empréstimo de jogos .
 
 - Controlar bibliotecas individuais de jogos por usuário.
 
@@ -73,7 +73,7 @@ A aplicação está dividida em camadas:
 
 - Inclusão de jogos na biblioteca pessoal.
 
-- Solicitação de devolução (com regras de tempo).
+- Solicitação de devolução.
 
 - Empréstimo de jogos
 
