@@ -21,7 +21,7 @@ namespace InfraEstructure.Repository.Configuration
             builder.HasMany(u => u.Bibliotecas)
                 .WithOne(b => b.Usuario)
                 .HasForeignKey(b => b.UsuarioID)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
         }
     }
