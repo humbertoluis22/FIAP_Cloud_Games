@@ -37,7 +37,7 @@ namespace Core.Entity
             }
             else
             {
-                this.Senha = senha;
+                DefinirSenha(senha);
             }
         }
 
@@ -111,6 +111,8 @@ namespace Core.Entity
             }
             this.Bloqueado = false;
         }
+
+
 
     }
 }

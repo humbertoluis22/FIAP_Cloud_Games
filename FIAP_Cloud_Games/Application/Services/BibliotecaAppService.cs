@@ -46,7 +46,7 @@ namespace Application.Services
         public async Task<List<BibliotecaDTO>> ObterDadosBibliotecaUsuarioAsync(int id)
         {
             var dadosUsuario = await _bibliotecaRepository.ObterDadosBibliotecaUsuario(id);
-            if (dadosUsuario == null)
+            if (dadosUsuario == null || !dadosUsuario.Any())
             {
                 throw new KeyNotFoundException("Nenhum dado encontrado na biblioteca!");
             }

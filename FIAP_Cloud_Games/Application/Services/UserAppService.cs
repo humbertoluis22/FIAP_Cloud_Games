@@ -77,12 +77,13 @@ namespace Application.Services
             };
         }
 
-        public async Task<UsuarioDTO> AlterarEmailAsync(UsuarioUpdateEmailInput input)
+
+        public async Task<UsuarioDTO> AlterarSenhaUserAsync(int userID, string senha)
         {
-            var usuario = await _userRepository.ObterPorIdAsync(input.UsuarioID)
+            var usuario = await _userRepository.ObterPorIdAsync(userID)
                           ?? throw new KeyNotFoundException("Usuario não encontrado");
 
-            usuario.Email = input.Email;
+            usuario.AlterarSenha(senha);
             await _userRepository.AlterarAsync(usuario);
 
             return new UsuarioDTO
@@ -92,6 +93,42 @@ namespace Application.Services
                 Id = usuario.ID
             };
         }
+
+
+
+        public async Task<UsuarioDTO> AlterarEmailAsync(UsuarioUpdateEmailInput input)
+        {
+            var usuario = await _userRepository.ObterPorIdAsync(input.UsuarioID)
+                          ?? throw new KeyNotFoundException("Usuario não encontrado");
+
+            usuario.DefinirEmail(input.Email);
+            await _userRepository.AlterarAsync(usuario);
+
+            return new UsuarioDTO
+            {
+                Email = usuario.Email,
+                UserName = usuario.UserName,
+                Id = usuario.ID
+            };
+        }
+
+
+        public async Task<UsuarioDTO> AlterarEmailUserAsync(int Userid, string email)
+        {
+            var usuario = await _userRepository.ObterPorIdAsync(Userid)
+                          ?? throw new KeyNotFoundException("Usuario não encontrado");
+
+            usuario.Email = email;
+            await _userRepository.AlterarAsync(usuario);
+
+            return new UsuarioDTO
+            {
+                Email = usuario.Email,
+                UserName = usuario.UserName,
+                Id = usuario.ID
+            };
+        }
+
 
         public async Task BloquearUsuarioAsync(int usuarioId)
         {

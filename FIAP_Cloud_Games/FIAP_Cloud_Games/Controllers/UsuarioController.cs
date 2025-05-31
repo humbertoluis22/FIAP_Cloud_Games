@@ -113,11 +113,11 @@ namespace FIAP_Cloud_Games.Controllers
 
 
 
-        // <summary>
-        /// Altera a senha do usuário autenticado.
-        /// </summary>
+        /// <summary>
+        /// Altera a senha de um usuário qualquer.
+        ///</summary>
         /// <remarks>
-        /// Acesso restrito a usuários autenticados com perfil "User" ou "Admin".
+        /// Acesso restrito a usuários autenticados com perfil  "Admin".
         /// </remarks>
         /// <param name="usuarioInput">Dados para atualização da senha.</param>
         /// <returns>Confirmação da alteração da senha.</returns>
@@ -125,7 +125,7 @@ namespace FIAP_Cloud_Games.Controllers
         /// <response code="404">Usuário não encontrado.</response>
         /// <response code="400">Erro na requisição.</response>
         [HttpPut("alterarSenha")]
-        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> AlterarSenha([FromBody] UsuarioUpdateInput usuarioInput)
         {
             try
@@ -145,10 +145,47 @@ namespace FIAP_Cloud_Games.Controllers
 
 
         /// <summary>
-        /// Altera o e-mail do usuário autenticado.
+        /// Altera a senha do usuário autenticado.
+        ///</summary>
+        /// <remarks>
+        /// Acesso restrito a usuários autenticados com perfil  "User".
+        /// </remarks>
+        /// <param name="senha">Nova senha.</param>
+        /// <returns>Confirmação da alteração da senha.</returns>
+        /// <response code="200">Senha alterada com sucesso.</response>
+        /// <response code="404">Usuário não encontrado.</response>
+        /// <response code="400">Erro na requisição.</response>
+        [HttpPut("alterarSenhaUser/{senha}")]
+        [Authorize(Roles = "User")]
+        public async Task<ActionResult> AlterarSenhaUser([FromRoute] string senha)
+        {
+            try
+            {
+                var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+                var usuario = await _userAppService.AlterarSenhaUserAsync( userId,  senha);
+                return Ok(new
+                {
+                    Messagem = "Senha alterada com sucesso",
+                    Dados = usuario
+                });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+
+        /// <summary>
+        /// Altera o e-mail de um usuário qualquer .
         /// </summary>
         /// <remarks>
-        /// Acesso restrito a usuários autenticados com perfil "User" ou "Admin".
+        /// Acesso restrito a usuários autenticados com perfil "Admin".
         /// </remarks>
         /// <param name="usuarioInput">Dados para atualização do e-mail.</param>
         /// <returns>Confirmação da alteração do e-mail.</returns>
@@ -156,7 +193,7 @@ namespace FIAP_Cloud_Games.Controllers
         /// <response code="404">Usuário não encontrado.</response>
         /// <response code="400">Erro na requisição.</response>
         [HttpPut("AlterarEmail")]
-        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> AlterarEmail(
             [FromBody] UsuarioUpdateEmailInput usuarioInput
             )
@@ -175,6 +212,42 @@ namespace FIAP_Cloud_Games.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
+
+        /// <summary>
+        /// Altera o e-mail do usuário autenticado.
+        /// </summary>
+        /// <remarks>
+        /// Acesso restrito a usuários autenticados com perfil "User".
+        /// </remarks>
+        /// <param name="email">Novo e-mail.</param>
+        /// <returns>Confirmação da alteração do e-mail.</returns>
+        /// <response code="200">E-mail alterado com sucesso.</response>
+        /// <response code="404">Usuário não encontrado.</response>
+        /// <response code="400">Erro na requisição.</response>
+        [HttpPut("AlterarEmailUser/{email}")]
+        [Authorize(Roles = "User")]
+        public async Task<ActionResult> AlterarEmailUser(
+            [FromRoute] string email
+            )
+        {
+            try
+            {
+                var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
+                var usuario = await _userAppService.AlterarEmailUserAsync(userId, email);
+                return Ok(usuario);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
 
 
 
