@@ -1,8 +1,7 @@
-﻿using Core.Repository;
-using Microsoft.AspNetCore.Mvc;
-using Core.Input.jogo;
-using Core.Entity;
+﻿using Application.Services;
+using Core.Input;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FIAP_Cloud_Games.Controllers
 {
@@ -10,10 +9,10 @@ namespace FIAP_Cloud_Games.Controllers
     [Route("v1/[controller]")]
     public class JogoController : Controller
     {
-        private readonly IJogoRepository _jogoRepository;
-        public JogoController(IJogoRepository jogoRepository)
+        private readonly JogoAppService _jogoAppService;
+        public JogoController(JogoAppService jogoAppService)
         {
-            _jogoRepository = jogoRepository;
+            _jogoAppService = jogoAppService;
         }
 
 
@@ -34,28 +33,13 @@ namespace FIAP_Cloud_Games.Controllers
         {
             try
             {
-                var lista = await _jogoRepository.ObterTodosAsync();
-                if (lista == null || lista.Count == 0)
-                {
-                    return NotFound("Nenhum jogo encontrado!");
-                }
+                var jogos = await _jogoAppService.ListarJogosAsync();
 
-                var listaDTO = new List<JogoDto>();
-                foreach (var jogo in lista)
-                {
-                    listaDTO.Add(
-                        new JogoDto()
-                        {
-                            JogoId = jogo.ID,
-                            NomeJogo = jogo.NomeJogo,
-                            Genero = jogo.Genero,
-                            Descricao = jogo.Descricao,
-                            Desenvolvedor = jogo.Desenvolvedor,
-                            Preco = jogo.Preco,
-
-                        });
-                }
-                return Ok(listaDTO);
+                return Ok(jogos);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception ex)
             {
@@ -83,22 +67,12 @@ namespace FIAP_Cloud_Games.Controllers
         {
             try
             {
-                var jogo = await _jogoRepository.ObterPorIdAsync(id);
-                if (jogo == null)
-                {
-                    return NotFound("Nenhum jogo encontrado!");
-                }
-                var jogoDTO = new JogoDto()
-                {
-                    JogoId = jogo.ID,
-                    NomeJogo = jogo.NomeJogo,
-                    Genero = jogo.Genero,
-                    Descricao = jogo.Descricao,
-                    Desenvolvedor = jogo.Desenvolvedor,
-                    Preco = jogo.Preco,
-                };
-                return Ok(jogoDTO);
-
+                var jogo = await _jogoAppService.ObterJogoPorIdAsync(id);
+                return Ok(jogo);
+            }
+            catch(KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception ex)
             {
@@ -124,27 +98,12 @@ namespace FIAP_Cloud_Games.Controllers
         {
             try
             {
-                Jogo jogo = new Jogo(
-                    jogoInput.IdAdmin,
-                    jogoInput.NomeJogo,
-                    jogoInput.Genero,
-                    jogoInput.Descricao,
-                    jogoInput.Desenvolvedor,
-                    jogoInput.Preco);
-
-                await _jogoRepository.CadastrarAssync(jogo);
-
-                var jogoDTO = new JogoDto()
-                {
-                    JogoId = jogo.ID,
-                    NomeJogo = jogo.NomeJogo,
-                    Genero = jogo.Genero,
-                    Descricao = jogo.Descricao,
-                    Desenvolvedor = jogo.Desenvolvedor,
-                    Preco = jogo.Preco,
-                };
-
-                return Created("Jogo criado com sucesso !", jogoDTO);
+                var jogo = await _jogoAppService.CriarJogoAsync(jogoInput);
+                return Created("Jogo criado com sucesso!", jogo);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(ex.Message);
             }
             catch (Exception ex)
             {
@@ -171,35 +130,17 @@ namespace FIAP_Cloud_Games.Controllers
             try
             {
 
-                var jogo = await _jogoRepository.ObterPorIdAsync(jogoInput.JogoID);
-                
-                if (jogo == null)
-                {
-                    return NotFound("Jogo não encontrado!");
-                }   
-
-                jogo.NomeJogo = jogoInput.NomeJogo;
-                jogo.Genero = jogoInput.Genero;
-                jogo.Descricao = jogoInput.Descricao;
-                jogo.Preco = jogoInput.Preco;
-
-                await _jogoRepository.AlterarAsync(jogo);
-
-                var jogoDTO = new JogoDto()
-                {
-                    JogoId = jogo.ID,
-                    NomeJogo = jogo.NomeJogo,
-                    Genero = jogo.Genero,
-                    Descricao = jogo.Descricao,
-                    Desenvolvedor = jogo.Desenvolvedor,
-                    Preco = jogo.Preco,
-                };
-
+                var jogo = await _jogoAppService.AtualizarJogoAsync(jogoInput);
+         
                 return Ok(new
                 {
-                    Messagem = "Jogo atualizado com sucesso !",
-                    Dados = jogoDTO
+                    Mensagem = "Jogo atualizado com sucesso!",
+                    Dados = jogo
                 });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception ex)
             {
@@ -227,13 +168,13 @@ namespace FIAP_Cloud_Games.Controllers
         {
             try
             {
-                var jogo = await _jogoRepository.ObterPorIdAsync(id);
-                if (jogo == null)
-                {
-                    return NotFound("Jogo não encontrado!");
-                }
-                await _jogoRepository.DeletarAsync(jogo.ID);
-                return Ok("Jogo deletado com sucesso !");
+                var sucesso = await _jogoAppService.DeletarJogoAsync(id);
+          
+                return Ok("Jogo deletado com sucesso!");
+            }
+            catch (KeyNotFoundException  ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception ex)
             {
@@ -241,8 +182,5 @@ namespace FIAP_Cloud_Games.Controllers
             }
         }
 
-
-    
-    
     }
 }

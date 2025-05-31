@@ -1,11 +1,6 @@
 ﻿using Core.Entity;
 using Core.Repository;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InfraEstructure.Repository
 {

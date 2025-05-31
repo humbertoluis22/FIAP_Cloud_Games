@@ -1,6 +1,4 @@
 ﻿using Core.Entity;
-using Core.Input;
-using Core.Input.biblioteca;
 
 namespace Core.Repository
 {

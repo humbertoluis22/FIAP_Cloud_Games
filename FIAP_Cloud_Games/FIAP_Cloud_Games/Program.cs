@@ -1,11 +1,12 @@
+using Application.Services;
 using Core.Repository;
+using FIAP_Cloud_Games;
+using FIAP_Cloud_Games.Middlewares;
 using InfraEstructure;
 using InfraEstructure.Auth;
-using InfraEstructure.Middleware;
 using InfraEstructure.Repository;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -22,6 +23,7 @@ builder.Services.AddEndpointsApiExplorer();
 #region Documento Swagger
 builder.Services.AddSwaggerGen(c =>
 {
+
     var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = System.IO.Path.Combine(System.AppContext.BaseDirectory, xmlFile);
     c.IncludeXmlComments(xmlPath);
@@ -48,9 +50,13 @@ builder.Services.AddDbContext<AppDbContext>(
 
 #region incluindo injecao de dependencia das Interfaces IRepository
 builder.Services.AddScoped<IJogoRepository, JogoRepository>();
+builder.Services.AddScoped<JogoAppService>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<UserAppService>();
 builder.Services.AddScoped<IBibliotecaRepository, BibliotecaRepository>();
+builder.Services.AddScoped<BibliotecaAppService>();
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+builder.Services.AddScoped<AdminAppService>();
 #endregion
 
 
@@ -95,7 +101,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseMiddleware<LogMiddleware>();
+app.UseLogMiddleware();
 
 app.UseHttpsRedirection();
 

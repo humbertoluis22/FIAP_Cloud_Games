@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Input.usuario
+namespace Core.Input
 {
-    public class UsuarioUpdateInput
+    public class UsuarioInput
     {
-        public int UsuarioID { get; set; }
+        public string UserName { get; set; }
         public string Senha { get; set; }
+        public string Email { get; set; }
+
     }
 }

@@ -6,7 +6,7 @@ namespace FGC.Test
     {
         //tdd
         [Fact]
-        public void DeveRetornarValorComDescontoQuandoDescontoAplicado()
+        public void AplicarPorcentagemDesconto_DeveRetornarValorComDesconto_QuandoDescontoAplicado()
         {
             //arrange
             var jogo = new Jogo();
@@ -25,7 +25,7 @@ namespace FGC.Test
 
 
         [Fact]
-        public void DeveRetornarErroQuandoPorcentagemDescontoForMenorQue5()
+        public void AplicarPorcentagemDesconto_DeveRetornarErro_QuandoPorcentagemDescontoForMenorQue5()
         {
             //arrange
             var jogo = new Jogo();

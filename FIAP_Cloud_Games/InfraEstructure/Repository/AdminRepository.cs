@@ -1,7 +1,6 @@
 ﻿using Core.Entity;
 using Core.Repository;
 using Microsoft.EntityFrameworkCore;
-using System.Net.Http.Headers;
 
 namespace InfraEstructure.Repository
 {

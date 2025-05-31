@@ -1,9 +1,6 @@
-﻿using Core.Input.admin;
-using Core.Input.usuario;
+﻿using Core.Input;
 using Core.Repository;
-using InfraEstructure;
 using InfraEstructure.Auth;
-using InfraEstructure.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FIAP_Cloud_Games.Controllers

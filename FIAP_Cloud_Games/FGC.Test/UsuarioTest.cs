@@ -9,7 +9,7 @@ namespace FGC.Test
        [InlineData("Teste12111")]
        [InlineData("teste#1222")]
        [InlineData("TesteTe#")]
-        public void DeveRetornarErroQuandoSenhaNaoAtenderAosRequisitos(string senha)
+        public void DefinirSenha_DeveRetornarErro_QuandoSenhaNaoAtenderAosRequisitos(string senha)
         {
             // arragen
             var usuario = new Usuario();
@@ -26,7 +26,7 @@ namespace FGC.Test
 
         //tdd
         [Fact]
-        public void DeveRetornarErroQuandoSenhaConterMenosDe8Caracteres()
+        public void DefinirSenha_DeveRetornarErro_QuandoSenhaConterMenosDe8Caracteres()
         {
             //arrange
             var usuario = new Usuario();
@@ -45,7 +45,7 @@ namespace FGC.Test
         [InlineData("OutraSenha#1234")]
         [InlineData("Validado@1")]
         [InlineData("MuitoBoa*2")]
-        public void DeveCriarSenhaSeSenhaTiverNoFormatoValida(string senha)
+        public void DefinirSenha_DeveCriarSenha_SeSenhaTiverNoFormatoValida(string senha)
         {
             //action
             var usuario = new Usuario();
@@ -61,7 +61,7 @@ namespace FGC.Test
         [Theory]
         [InlineData("usuario.com")]
         [InlineData("Usuario@com")]
-        public void DeveRetornarErroQuandoEmailNaoAtenderAosRequisitos(string email)
+        public void DefinirEmail_DeveRetornarErro_QuandoEmailNaoAtenderAosRequisitos(string email)
         {
             //arrange
             var usuario = new Usuario();
@@ -79,7 +79,7 @@ namespace FGC.Test
         [Theory]
         [InlineData("usuario@gmail.com")]
         [InlineData("usuario@hotmail.com")]
-        public void DeveCriarEmailQuandoEmailAtenderAosRequisitos(string email)
+        public void DefinirEmail_DeveCriarEmail_QuandoEmailAtenderAosRequisitos(string email)
         {
             //arrange
             var usuario = new Usuario();
@@ -95,7 +95,7 @@ namespace FGC.Test
 
         //tdd
         [Fact]
-        public void DeveBloquearUsuarioQuandoSolicitado()
+        public void BloquearUsuario_DeveBloquearUsuario_QuandoSolicitado()
         {
             //arrange
             var usuario = new Usuario();
@@ -110,7 +110,7 @@ namespace FGC.Test
 
 
         [Fact]
-        public void DeveRetornarErroQuandoUsuarioJaBloqueado()
+        public void BloquearUsuario_DeveRetornarErro_QuandoUsuarioJaBloqueado()
         {
             //arrange
             var usuario = new Usuario();
@@ -124,7 +124,7 @@ namespace FGC.Test
 
         //tdd
         [Fact]
-        public void DeveDesbloquearUsuarioQuandoBloqueado()
+        public void DesbloquearUsuario_DeveDesbloquearUsuario_QuandoBloqueado()
         {
             //arrange
             var usuario = new Usuario();
@@ -139,7 +139,7 @@ namespace FGC.Test
 
 
         [Fact]
-        public void DeveRetornarErroQuandoTentaDesbloquarUsuarioDesbloqueado()
+        public void DesbloquearUsuario_DeveRetornarErro_QuandoTentaDesbloquarUsuarioDesbloqueado()
         {
             //arrange
             var usuario = new Usuario();

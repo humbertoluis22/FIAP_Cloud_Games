@@ -1,6 +1,6 @@
 ﻿using System.IO.Pipes;
 
-namespace Core.Input.admin
+namespace Core.Input
 {
     public class AdminInput
     {

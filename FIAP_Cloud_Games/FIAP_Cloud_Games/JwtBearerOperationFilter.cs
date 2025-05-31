@@ -2,21 +2,23 @@
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-public class JwtBearerOperationFilter : IOperationFilter
+namespace FIAP_Cloud_Games
 {
-    public void Apply(OpenApiOperation operation, OperationFilterContext context)
+    public class JwtBearerOperationFilter : IOperationFilter
     {
-        var hasAuthorize = context.MethodInfo.DeclaringType.GetCustomAttributes(true).OfType<AuthorizeAttribute>().Any()
-                           || context.MethodInfo.GetCustomAttributes(true).OfType<AuthorizeAttribute>().Any();
-
-        var allowAnonymous = context.MethodInfo.GetCustomAttributes(true).OfType<AllowAnonymousAttribute>().Any();
-
-        if (!hasAuthorize || allowAnonymous)
-            return;
-
-        operation.Security = new List<OpenApiSecurityRequirement>
+        public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
-            new OpenApiSecurityRequirement
+            var hasAuthorize = context.MethodInfo.DeclaringType.GetCustomAttributes(true).OfType<AuthorizeAttribute>().Any()
+                               || context.MethodInfo.GetCustomAttributes(true).OfType<AuthorizeAttribute>().Any();
+
+            var allowAnonymous = context.MethodInfo.GetCustomAttributes(true).OfType<AllowAnonymousAttribute>().Any();
+
+            if (!hasAuthorize || allowAnonymous)
+                return;
+
+            operation.Security =
+            [
+                new OpenApiSecurityRequirement
             {
                 {
                     new OpenApiSecurityScheme
@@ -27,9 +29,10 @@ public class JwtBearerOperationFilter : IOperationFilter
                             Id = "Bearer"
                         }
                     },
-                    new string[] {}
+                    Array.Empty<string>()
                 }
             }
-        };
+            ];
+        }
     }
 }

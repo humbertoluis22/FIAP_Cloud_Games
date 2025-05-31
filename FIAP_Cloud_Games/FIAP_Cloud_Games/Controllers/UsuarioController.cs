@@ -1,9 +1,7 @@
-﻿using Core.Entity;
-using Core.Input.usuario;
-using Core.Repository;
+﻿using Application.Services;
+using Core.Input;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Runtime.CompilerServices;
 using System.Security.Claims;
 
 namespace FIAP_Cloud_Games.Controllers
@@ -12,10 +10,10 @@ namespace FIAP_Cloud_Games.Controllers
     [Route("v1/[controller]")]
     public class UsuarioController : Controller
     {
-        private readonly IUsuarioRepository _usuarioRepository;
-        public UsuarioController(IUsuarioRepository usuarioRepository)
+        private readonly UserAppService _userAppService;
+        public UsuarioController(UserAppService userAppService)
         {
-            _usuarioRepository = usuarioRepository;
+            _userAppService = userAppService;
         }
 
 
@@ -35,22 +33,13 @@ namespace FIAP_Cloud_Games.Controllers
         {
             try
             {
-                var lista = await _usuarioRepository.ObterTodosAsync();
-                if (lista == null || lista.Count == 0)
+                var usuarios = await _userAppService.ListarTodosAsync();
+                if (!usuarios.Any())
                 {
                     return NotFound("Nenhum usuario encontrado !");
                 }
-                var listaDTO = new List<UsuarioDTO>();
-                foreach (var usuario in lista)
-                {
-                    listaDTO.Add(new UsuarioDTO()
-                    {
-                        UserName = usuario.UserName,
-                        Email = usuario.Email,
-                        Id = usuario.ID,
-                    });
-                }
-                return Ok(listaDTO);
+               
+                return Ok(usuarios);
             }
             catch (Exception ex)
             {
@@ -76,25 +65,13 @@ namespace FIAP_Cloud_Games.Controllers
         {
             try
             {
-                var usuariosBloqueados = await _usuarioRepository.RecolherUsuarioBloqueados();
+                var usuariosBloqueados = await _userAppService.ListarBloqueadosAsync();
                 if (!usuariosBloqueados.Any())
                 {
                     return NotFound("Nenhum usuario bloqueado encontrado !");
                 }
-                var usuariosBloqueadosDTO = new List<UsuarioBloqueadoDTO>();
-                foreach (var usuario in usuariosBloqueados)
-                {
-                    usuariosBloqueadosDTO.Add(new UsuarioBloqueadoDTO()
-                    {
-                        UserName = usuario.UserName,
-                        Email = usuario.Email,
-                        Id = usuario.ID,
-                        Bloqueado = usuario.Bloqueado
 
-                    });
-                }
-
-                return Ok(usuariosBloqueadosDTO);
+                return Ok(usuariosBloqueados);
             }
             catch (Exception ex)
             {
@@ -120,32 +97,13 @@ namespace FIAP_Cloud_Games.Controllers
         {
             try
             {
-                Usuario usuario = new Usuario(
-                    usuarioInput.UserName,
-                    usuarioInput.Senha,
-                    usuarioInput.Email
-                    );
+                var usuario = await _userAppService.CadastrarUsuarioAsync(usuarioInput);
+                return Created("Usuario criado com sucesso!", usuario);
 
-
-                var usuario_validacao = await _usuarioRepository
-                    .ListarUsuarioPorEmailouUserName(usuarioInput.UserName, usuarioInput.Email);
-
-
-                if (usuario_validacao.Any())
-                {
-                    return Conflict("UserName ou Email já utilizados!");
-                }
-
-                await _usuarioRepository.CadastrarAssync(usuario);
-
-                UsuarioDTO usuarioTDO = new UsuarioDTO()
-                {
-                    UserName = usuario.UserName,
-                    Email = usuario.Email,
-                    Id = usuario.ID,
-                };
-
-                return Created("Usuario criado com sucesso !", usuarioTDO);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return Conflict(ex.Message);
             }
             catch (Exception ex)
             {
@@ -172,26 +130,12 @@ namespace FIAP_Cloud_Games.Controllers
         {
             try
             {
-                var usuario = await _usuarioRepository.ObterPorIdAsync(usuarioInput.UsuarioID);
-                if (usuario == null)
-                {
-                    return NotFound("Usuario não encontrado");
-                }
-
-                usuario.AlterarSenha(usuarioInput.Senha);
-                await _usuarioRepository.AlterarAsync(usuario);
-
-                UsuarioDTO usuarioTDO = new UsuarioDTO()
-                {
-                    UserName = usuario.UserName,
-                    Email = usuario.Email,
-                    Id = usuario.ID,
-                };
-                return Ok(new
-                {
-                    Messagem = "Senha alterada com sucesso !",
-                    Dados = usuarioTDO
-                });
+                var usuario = await _userAppService.AlterarSenhaAsync(usuarioInput);
+                return Ok(usuario);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception ex)
             {
@@ -219,26 +163,12 @@ namespace FIAP_Cloud_Games.Controllers
         {
             try
             {
-                var usuario = await _usuarioRepository.ObterPorIdAsync(usuarioInput.UsuarioID);
-                if (usuario == null)
-                {
-                    return NotFound("Nenhum Usuário encontrado !");
-                }
-                usuario.Email = usuarioInput.Email;
-                await _usuarioRepository.AlterarAsync(usuario);
-
-                var usuarioDto = new UsuarioDTO()
-                {
-                    Email = usuario.Email,
-                    UserName = usuario.UserName,
-                    Id = usuario.ID,
-                };
-
-                return Ok(new
-                {
-                    messagem = "Email alterado com sucesso !",
-                    dados = usuarioDto
-                });
+                var usuario = await _userAppService.AlterarEmailAsync(usuarioInput);
+                return Ok(usuario);
+            }
+            catch(KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception ex)
             {
@@ -265,14 +195,12 @@ namespace FIAP_Cloud_Games.Controllers
         {
             try
             {
-                var usuario = await _usuarioRepository.ObterPorIdAsync(usuarioId);
-                if (usuario == null)
-                {
-                    return NotFound("Nenhum usuário encontrado !");
-                }
-                usuario.BloquearUsuario();
-                await _usuarioRepository.AlterarAsync(usuario);
-                return Ok("Usuario bloqueado com sucesso !");
+                await _userAppService.BloquearUsuarioAsync(usuarioId);
+                return Ok("Usuário bloqueado com sucesso");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception ex)
             {
@@ -299,14 +227,12 @@ namespace FIAP_Cloud_Games.Controllers
         {
             try
             {
-                var usuario = await _usuarioRepository.ObterPorIdAsync(usuarioId);
-                if (usuario == null)
-                {
-                    return NotFound("Nenhum usuário encontrado !");
-                }
-                usuario.DesbloquearUsuario();
-                await _usuarioRepository.AlterarAsync(usuario);
-                return Ok("Usuario desbloqueado com sucesso !");
+                await _userAppService.DesbloquearUsuarioAsync(usuarioId);
+                return Ok("Usuário desbloqueado com sucesso");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception ex)
             {
@@ -333,14 +259,13 @@ namespace FIAP_Cloud_Games.Controllers
         {
             try
             {
-                var usuario = _usuarioRepository.ObterPorIdAsync(usuarioId);
-                if (usuario == null)
-                {
-                    return NotFound("Nenhum usuário encontrado !");
-                }
-                await _usuarioRepository.DeletarAsync(usuarioId);
-                return Ok("Usuario deletado com sucesso !");
+                await _userAppService.DeletarUsuarioAsync(usuarioId);
+                return Ok("Usuário deletado com sucesso");
 
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception ex)
             {
@@ -368,13 +293,12 @@ namespace FIAP_Cloud_Games.Controllers
             {
                 var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
 
-                var usuario = await _usuarioRepository.ObterPorIdAsync(userId);
-                if (usuario == null)
-                {
-                    return NotFound("Nenhum usuário encontrado !");
-                }
-                await _usuarioRepository.DeletarAsync(usuario.ID);
-                return Ok("Conta deletada com sucesso !");
+                await _userAppService.DeletarUsuarioAsync(userId);
+                return Ok("Usuário deletado com sucesso");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception ex)
             {

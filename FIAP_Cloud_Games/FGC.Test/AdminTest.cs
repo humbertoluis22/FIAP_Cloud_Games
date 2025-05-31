@@ -10,7 +10,7 @@ namespace FGC.Test
         [InlineData("Teste3124")]
         [InlineData("teste#124")]
         [InlineData("TesteTeste#")]
-        public void DeveRetornarErroQuandoSenhaNaoAtenderAosRequisitos(string senha)
+        public void DefinirSenha_DeveRetornarErro_QuandoSenhaNaoAtenderAosRequisitos(string senha)
         {
             // arragen
             var admin = new Admin();
@@ -27,7 +27,7 @@ namespace FGC.Test
 
 
         [Fact]
-        public void DeveRetornarErroQuandoSenhaConterMenosDe8Caracteres()
+        public void DefinirSenha_DeveRetornarErroQuando_SenhaConterMenosDe8Caracteres()
         {
             //arrange
             var admin = new Admin();
@@ -46,7 +46,7 @@ namespace FGC.Test
         [InlineData("Teste#1234")]
         [InlineData("Valida@1")]
         [InlineData("SenhaBoa*2")]
-        public void DeveCriarSenhaSeSenhaTiverNoFormatoValida(string senha)
+        public void DefinirSenha_DeveCriarSenha_SeSenhaTiverNoFormatoValida(string senha)
         {
             //action
             var Admin = new Admin();
@@ -61,7 +61,7 @@ namespace FGC.Test
         [Theory]
         [InlineData("Teste.com")]
         [InlineData("Teste@com")]
-        public void DeveRetornarErroQuandoEmailNaoAtenderAosRequisitos(string email)
+        public void DefinirEmail_DeveRetornarErro_QuandoEmailNaoAtenderAosRequisitos(string email)
         {
             //arrange
             var admin = new Admin();
@@ -79,7 +79,7 @@ namespace FGC.Test
         [Theory]
         [InlineData("Teste@gmail.com")]
         [InlineData("Teste@by.com")]
-        public void DeveCriarEmailQuandoEmailAtenderAosRequisitos(string email)
+        public void DefinirEmail_DeveCriarEmail_QuandoEmailAtenderAosRequisitos(string email)
         {
             //arrange
             var admin = new Admin();

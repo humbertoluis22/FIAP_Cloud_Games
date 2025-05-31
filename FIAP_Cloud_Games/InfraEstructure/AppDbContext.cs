@@ -1,6 +1,5 @@
 ﻿using Core.Entity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Client;
 
 namespace InfraEstructure
 {
