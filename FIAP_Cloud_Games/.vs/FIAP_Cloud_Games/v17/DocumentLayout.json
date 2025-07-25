@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\Humberto\\Desktop\\FIAP_Cloud_Games\\FIAP_Cloud_Games\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{278A8989-F873-48B8-BD27-6402466141E7}|FIAP_Cloud_Games\\FIAP_Cloud_Games.csproj|c:\\users\\humberto\\desktop\\fiap_cloud_games\\fiap_cloud_games\\fiap_cloud_games\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{278A8989-F873-48B8-BD27-6402466141E7}|FIAP_Cloud_Games\\FIAP_Cloud_Games.csproj|solutionrelative:fiap_cloud_games\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{0C1F390E-AE41-4AF7-9AC8-B143AD944224}|Application\\Application.csproj|c:\\users\\humberto\\desktop\\fiap_cloud_games\\fiap_cloud_games\\application\\services\\userappservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{0C1F390E-AE41-4AF7-9AC8-B143AD944224}|Application\\Application.csproj|solutionrelative:application\\services\\userappservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -47,19 +51,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Humberto\\Desktop\\FIAP_Cloud_Games\\FIAP_Cloud_Games\\FIAP_Cloud_Games\\Program.cs",
+              "RelativeDocumentMoniker": "FIAP_Cloud_Games\\Program.cs",
+              "ToolTip": "C:\\Users\\Humberto\\Desktop\\FIAP_Cloud_Games\\FIAP_Cloud_Games\\FIAP_Cloud_Games\\Program.cs",
+              "RelativeToolTip": "FIAP_Cloud_Games\\Program.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAAFwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-25T19:34:54.782Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "UserAppService.cs",
               "DocumentMoniker": "C:\\Users\\Humberto\\Desktop\\FIAP_Cloud_Games\\FIAP_Cloud_Games\\Application\\Services\\UserAppService.cs",
               "RelativeDocumentMoniker": "Application\\Services\\UserAppService.cs",
               "ToolTip": "C:\\Users\\Humberto\\Desktop\\FIAP_Cloud_Games\\FIAP_Cloud_Games\\Application\\Services\\UserAppService.cs",
               "RelativeToolTip": "Application\\Services\\UserAppService.cs",
-              "ViewState": "AgIAAFYAAAAAAAAAAAAAwGYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAIwAAAAAAAAAAAAswJ0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-31T18:21:13.883Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "UsuarioTest.cs",
               "DocumentMoniker": "C:\\Users\\Humberto\\Desktop\\FIAP_Cloud_Games\\FIAP_Cloud_Games\\FGC.Test\\UsuarioTest.cs",
               "RelativeDocumentMoniker": "FGC.Test\\UsuarioTest.cs",
@@ -67,25 +84,23 @@
               "RelativeToolTip": "FGC.Test\\UsuarioTest.cs",
               "ViewState": "AgIAACwAAAAAAAAAAAAlwEUAAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-31T18:23:44.587Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-31T18:23:44.587Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "FGC.Test",
+              "DocumentIndex": 5,
+              "Title": "FGC.Test.csproj",
               "DocumentMoniker": "C:\\Users\\Humberto\\Desktop\\FIAP_Cloud_Games\\FIAP_Cloud_Games\\FGC.Test\\FGC.Test.csproj",
               "RelativeDocumentMoniker": "FGC.Test\\FGC.Test.csproj",
               "ToolTip": "C:\\Users\\Humberto\\Desktop\\FIAP_Cloud_Games\\FIAP_Cloud_Games\\FGC.Test\\FGC.Test.csproj",
               "RelativeToolTip": "FGC.Test\\FGC.Test.csproj",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-05-31T18:23:34.124Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-31T18:23:34.124Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Usuario.cs",
               "DocumentMoniker": "C:\\Users\\Humberto\\Desktop\\FIAP_Cloud_Games\\FIAP_Cloud_Games\\Core\\Entity\\Usuario.cs",
               "RelativeDocumentMoniker": "Core\\Entity\\Usuario.cs",
@@ -93,12 +108,11 @@
               "RelativeToolTip": "Core\\Entity\\Usuario.cs",
               "ViewState": "AgIAABAAAAAAAAAAAAA8wB8AAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-31T18:20:23.272Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-31T18:20:23.272Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "UsuarioController.cs",
               "DocumentMoniker": "C:\\Users\\Humberto\\Desktop\\FIAP_Cloud_Games\\FIAP_Cloud_Games\\FIAP_Cloud_Games\\Controllers\\UsuarioController.cs",
               "RelativeDocumentMoniker": "FIAP_Cloud_Games\\Controllers\\UsuarioController.cs",
@@ -106,12 +120,11 @@
               "RelativeToolTip": "FIAP_Cloud_Games\\Controllers\\UsuarioController.cs",
               "ViewState": "AgIAALcAAAAAAAAAAAAmwMoAAABFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-31T18:20:08.717Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-31T18:20:08.717Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 6,
               "Title": "BibliotecaAppService.cs",
               "DocumentMoniker": "C:\\Users\\Humberto\\Desktop\\FIAP_Cloud_Games\\FIAP_Cloud_Games\\Application\\Services\\BibliotecaAppService.cs",
               "RelativeDocumentMoniker": "Application\\Services\\BibliotecaAppService.cs",
@@ -119,12 +132,11 @@
               "RelativeToolTip": "Application\\Services\\BibliotecaAppService.cs",
               "ViewState": "AgIAACcAAAAAAAAAAAAAwDYAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-31T18:10:39.997Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-31T18:10:39.997Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "BibliotecaController.cs",
               "DocumentMoniker": "C:\\Users\\Humberto\\Desktop\\FIAP_Cloud_Games\\FIAP_Cloud_Games\\FIAP_Cloud_Games\\Controllers\\BibliotecaController.cs",
               "RelativeDocumentMoniker": "FIAP_Cloud_Games\\Controllers\\BibliotecaController.cs",
@@ -132,12 +144,11 @@
               "RelativeToolTip": "FIAP_Cloud_Games\\Controllers\\BibliotecaController.cs",
               "ViewState": "AgIAAFkAAAAAAAAAAAAwwGgAAABfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-31T18:10:22.101Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-31T18:10:22.101Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "AdminAppService.cs",
               "DocumentMoniker": "C:\\Users\\Humberto\\Desktop\\FIAP_Cloud_Games\\FIAP_Cloud_Games\\Application\\Services\\AdminAppService.cs",
               "RelativeDocumentMoniker": "Application\\Services\\AdminAppService.cs",
@@ -145,8 +156,7 @@
               "RelativeToolTip": "Application\\Services\\AdminAppService.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAABAAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-31T17:58:31.484Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-05-31T17:58:31.484Z"
             }
           ]
         }
