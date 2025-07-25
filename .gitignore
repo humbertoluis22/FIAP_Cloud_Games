@@ -10,7 +10,7 @@
 ## Arquivos específicos de IDEs
 
 # Visual Studio / Rider
-/.vs/
+.vs/
 /.idea/
 *.suo
 *.user
