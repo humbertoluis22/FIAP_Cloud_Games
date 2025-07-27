@@ -17,6 +17,10 @@
 *.userosscache
 *.sln.docstates
 
+# Pastas de build
+[Bb]in/
+[Oo]bj/
+
 # VS Code
 .vscode/
 

@@ -6,6 +6,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
 	<GenerateDocumentationFile>true</GenerateDocumentationFile>
 	<NoWarn>$(NoWarn);1591</NoWarn>
+	<UserSecretsId>f5460fbb-e96d-4a57-8c08-87c60b651283</UserSecretsId>
+	<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,6 +15,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.5" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.0.0" />
   </ItemGroup>
 
@@ -20,5 +23,10 @@
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\InfraEstructure\InfraEstructure.csproj" />
   </ItemGroup>
+
+    <PropertyGroup>
+	    <DockerfileContext>..\</DockerfileContext>
+	    <DockerfileFile>..\Dockerfile</DockerfileFile>
+    </PropertyGroup>
 
 </Project>
