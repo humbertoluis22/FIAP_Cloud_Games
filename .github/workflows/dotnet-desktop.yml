@@ -27,7 +27,7 @@ jobs:
       - name: Build e Push da imagem Docker
         uses: docker/build-push-action@v6.18.0
         with:
-          context: .
+          context: ./FIAP_Cloud_Games
           file: ./Dockerfile
           tags: humbertoluis22/fiap-cloud-games:latest
           push: true
