@@ -12,17 +12,18 @@ namespace InfraEstructure
             try
             {
                 var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-            
-                optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;" +
-                    "Database=FiapCloudGames;" +
-                    "Integrated Security=True;" +
-                    "Connect Timeout=30;" +
-                    "Encrypt=False;" +
-                    "TrustServerCertificate=False;" +
-                    "Application Intent=ReadWrite;" +
-                    "Multi Subnet Failover=False");
 
-                    return new AppDbContext(optionsBuilder.Options);
+                //optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;" +
+                //    "Database=FiapCloudGames;" +
+                //    "Integrated Security=True;" +
+                //    "Connect Timeout=30;" +
+                //    "Encrypt=False;" +
+                //    "TrustServerCertificate=False;" +
+                //    "Application Intent=ReadWrite;" +
+                //    "Multi Subnet Failover=False");
+                optionsBuilder.UseSqlServer("Server=localhost,1433;Database=FiapCloudGames;User Id=sa;Password=SuaSenhaForte#123;TrustServerCertificate=True;");
+
+                return new AppDbContext(optionsBuilder.Options);
             }
             catch(Exception ex)
             {
