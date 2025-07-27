@@ -1,6 +1,6 @@
 
 
-name: Sistema de gestao de atividade escolares
+name: CI - Fiap cloud games
 
 on:
   push:
@@ -9,15 +9,15 @@ on:
     branches: [ "main" ]
 
 jobs:
-    job01:
-      name: executando jobs docker
+    build-and-push:
+      name: Build and Push to Docker Hub
       runs-on: ubuntu-latest  # For a list of available runner types, refer to
   
       steps:
-        - name: Checkout
+        - name: Checkout do codigo
           uses: actions/checkout@v4
   
-        - name: Docker Login
+        - name: login do docker hub
           uses: docker/login-action@v3.4.0
           with:
             username: 'humbertoluis22'
@@ -25,11 +25,11 @@ jobs:
         
 
         - name: Build and push Docker images
-        
           uses: docker/build-push-action@v6.18.0
           with:
               context : .
-              tags:  humbertoluis22/sistemadegerenciamentodeatividadeescolares:latest
+              file: ./Dockerfile
+              tags:  humbertoluis22/fiap-cloud-games:latest
               push: true
          
 
