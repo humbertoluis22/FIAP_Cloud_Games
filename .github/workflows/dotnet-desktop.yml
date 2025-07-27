@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ "main" ]
 
-  # ADICIONE ESTA LINHA PARA PERMITIR EXECUÇÃO MANUAL
+  # ADICIONE ESTA LINHA PARA PERMITIR EXECUÇÃO manual
   workflow_dispatch:
   
 jobs:
