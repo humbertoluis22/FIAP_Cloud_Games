@@ -5,34 +5,29 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-
-  # ADICIONE ESTA LINHA PARA PERMITIR EXECUÇÃO manual
   workflow_dispatch:
-  
+
 jobs:
-    build-and-push:
-      name: Build and Push to Docker Hub
-      runs-on: ubuntu-latest  # For a list of available runner types, refer to
-  
-      steps:
-        - name: Checkout do codigo
-          uses: actions/checkout@v4
-  
-        - name: login do docker hub
-          uses: docker/login-action@v3.4.0
-          with:
-            username: 'humbertoluis22'
-            password: ${{secrets.DOCKERHUB_PASSWORD}}
-        
+  build-and-push:
+    name: Build and Push to Docker Hub
+    runs-on: ubuntu-latest
 
-        - name: Build and push Docker images
-          uses: docker/build-push-action@v6.18.0
-          with:
-              context: ${{ github.workspace }}/..
-              file: ${{ github.workspace }}/../Dockerfile
-              tags:  humbertoluis22/fiap-cloud-games:latest
-              push: true
-         
+    steps:
+      - name: Checkout do código na raiz do workspace
+        uses: actions/checkout@v4
+        with:
+          path: .
 
+      - name: Login no Docker Hub
+        uses: docker/login-action@v3.4.0
+        with:
+          username: 'humbertoluis22'
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
- 
+      - name: Build e Push da imagem Docker
+        uses: docker/build-push-action@v6.18.0
+        with:
+          context: .
+          file: ./Dockerfile
+          tags: humbertoluis22/fiap-cloud-games:latest
+          push: true
