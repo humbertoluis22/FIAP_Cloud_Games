@@ -28,8 +28,8 @@ jobs:
         - name: Build and push Docker images
           uses: docker/build-push-action@v6.18.0
           with:
-              context : .
-              file: ./Dockerfile
+              context: ${{ github.workspace }}
+              file: ${{ github.workspace }}/Dockerfile
               tags:  humbertoluis22/fiap-cloud-games:latest
               push: true
          
