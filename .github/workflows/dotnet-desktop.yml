@@ -1,5 +1,3 @@
-
-
 name: CI - Fiap cloud games
 
 on:
@@ -8,6 +6,9 @@ on:
   pull_request:
     branches: [ "main" ]
 
+  # ADICIONE ESTA LINHA PARA PERMITIR EXECUÇÃO MANUAL
+  workflow_dispatch:
+  
 jobs:
     build-and-push:
       name: Build and Push to Docker Hub
