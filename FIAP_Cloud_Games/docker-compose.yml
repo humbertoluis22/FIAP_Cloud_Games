@@ -1,47 +1,35 @@
-# Define a versão do Docker Compose que estamos usando
 version: '3.8'
 
-# Bloco onde definimos todos os nossos serviços (contêineres)
 services:
 
-  # 1. Serviço do Banco de Dados
+
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sql-server-db
     environment:
-      # Variáveis de ambiente obrigatórias para a imagem do SQL Server
+
       - ACCEPT_EULA=Y
-      - SA_PASSWORD=SuaSenhaForte#123 # <- COLOQUE SUA SENHA AQUI!
+      - SA_PASSWORD=SuaSenhaForte#123 
     ports:
-      # Mapeia a porta 1433 do contêiner para a porta 1433 da sua máquina
-      # Isso permite que você acesse o banco de fora (ex: Azure Data Studio)
+ 
       - "1433:1433"
     volumes:
-      # Esta linha é MUITO IMPORTANTE! Ela garante que os dados do seu banco
-      # não sejam perdidos quando o contêiner for recriado.
+
       - mssql-data:/var/opt/mssql
 
-  # 2. Serviço da sua API
   api:
-    # 'build: .' diz ao Compose para construir a imagem a partir do Dockerfile
-    # que está nesta mesma pasta
+
     build: .
     container_name: fcg-api-dev
     ports:
-      # Mapeia a porta 8080 do contêiner para a porta 8080 da sua máquina
       - "8080:8080"
     environment:
-      # ADICIONE ESTA LINHA PARA FORÇAR O AMBIENTE DE DESENVOLVIMENTO
       - ASPNETCORE_ENVIRONMENT=Development
-      # Desabilita o modo invariante de globalização
       - DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
-      # AQUI ESTÁ A MÁGICA: Passamos a connection string como variável de ambiente.
-      # Isso sobrescreve o valor do seu appsettings.json e é a forma mais correta.
+
       - ConnectionStrings__DefaultConnection=Server=db;Database=FiapCloudGames;User Id=sa;Password=SuaSenhaForte#123;TrustServerCertificate=True;
     depends_on:
-      # Garante que o serviço 'db' seja iniciado ANTES do serviço 'api'
       - db
 
-# Bloco onde definimos os volumes nomeados (para persistir dados)
 volumes:
   mssql-data:
