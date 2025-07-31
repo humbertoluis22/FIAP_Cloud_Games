@@ -1,4 +1,4 @@
-name: CI - Fiap cloud games (AWS ECR)
+name: CI/CD - Fiap cloud games (AWS ECR)
 
 on:
   push:
