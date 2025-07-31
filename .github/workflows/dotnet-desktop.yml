@@ -1,37 +1,45 @@
-
-
-name: CI - Fiap cloud games
+name: CI - Fiap cloud games (AWS ECR)
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
-    build-and-push:
-      name: Build and Push to Docker Hub
-      runs-on: ubuntu-latest  # For a list of available runner types, refer to
-  
-      steps:
-        - name: Checkout do codigo
-          uses: actions/checkout@v4
-  
-        - name: login do docker hub
-          uses: docker/login-action@v3.4.0
-          with:
-            username: 'humbertoluis22'
-            password: ${{secrets.DOCKERHUB_PASSWORD}}
-        
+  build-and-push:
+    name: Build and Push to AWS ECR
+    runs-on: ubuntu-latest
 
-        - name: Build and push Docker images
-          uses: docker/build-push-action@v6.18.0
-          with:
-              context : .
-              file: ./Dockerfile
-              tags:  humbertoluis22/fiap-cloud-games:latest
-              push: true
-         
+    # Variáveis de ambiente para o AWS ECR
+    env:
+      AWS_REGION: sa-east-1 
+      ECR_REPOSITORY: fiap-cloud-games 
 
+    steps:
+      - name: Checkout do código na raiz do workspace
+        uses: actions/checkout@v4
+        with:
+          path: .
 
+      - name: Configurar credenciais AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }} 
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
+          aws-region: ${{ env.AWS_REGION }} 
  
+      - name: Login no AWS ECR
+        id: login-ecr
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ steps.login-ecr.outputs.registry }} 
+
+      - name: Build e Push da imagem Docker para ECR
+        uses: docker/build-push-action@v5
+        with:
+          context: ./FIAP_Cloud_Games 
+          push: true
+
+          tags: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:latest
