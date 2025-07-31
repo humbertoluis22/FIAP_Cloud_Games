@@ -14,7 +14,7 @@ jobs:
 
     env:
       AWS_REGION: sa-east-1
-      ECR_REPOSITORY: fiap-cloud-games
+      ECR_REPOSITORY: fiap-aws
 
     steps:
       - name: Checkout do código na raiz do workspace
