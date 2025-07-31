@@ -12,10 +12,9 @@ jobs:
     name: Build and Push to AWS ECR
     runs-on: ubuntu-latest
 
-    # Variáveis de ambiente para o AWS ECR
     env:
-      AWS_REGION: sa-east-1 
-      ECR_REPOSITORY: fiap-cloud-games 
+      AWS_REGION: sa-east-1
+      ECR_REPOSITORY: fiap-cloud-games
 
     steps:
       - name: Checkout do código na raiz do workspace
@@ -26,20 +25,17 @@ jobs:
       - name: Configurar credenciais AWS
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }} 
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
-          aws-region: ${{ env.AWS_REGION }} 
- 
-      - name: Login no AWS ECR
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Fazer login no ECR
         id: login-ecr
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ steps.login-ecr.outputs.registry }} 
+        uses: aws-actions/amazon-ecr-login@v1
 
       - name: Build e Push da imagem Docker para ECR
         uses: docker/build-push-action@v5
         with:
-          context: ./FIAP_Cloud_Games 
+          context: ./FIAP_Cloud_Games
           push: true
-
           tags: ${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:latest
