@@ -57,7 +57,7 @@ Para rodar o container da imagem :
 docker run -p 8080:8080 -p 8081:8081 fiap-cloud-games-api 
 ```
 
-## 4. Execute as migrações e crie o banco
+## 6. Execute as migrações e crie o banco
 
 Certifique-se de que a connection string em appsettings.json aponta corretamente para seu SQL 
 Server. Depois, aplique as migrations:
