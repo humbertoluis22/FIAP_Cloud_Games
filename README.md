@@ -26,6 +26,8 @@ Antes de executar a API, você precisa ter:
 
 - Visual Studio 2022 ou superior (ou outro editor com suporte a .NET 8)
 
+- Docker Desktop
+    - 💡  Para utilizar um banco de dados externo (SQL Server), certifique-se de configurar a connection string corretamente no appsettings.json ou via variável de ambiente.
 
 ## 2. Clonando o repositório
 
@@ -39,6 +41,20 @@ cd fiap-cloud-games
 ```
 dotnet restore
 dotnet build
+```
+
+## 4. Gerando a imagem Docker
+Certifique-se de estar no diretório onde está o Dockerfile (raiz do projeto) e execute:
+
+```
+docker build -t fiap-cloud-games-api .
+```
+
+## 5. Rodando container
+Para rodar o container da imagem :
+
+```
+docker run -p 8080:8080 -p 8081:8081 fiap-cloud-games-api 
 ```
 
 ## 4. Execute as migrações e crie o banco
